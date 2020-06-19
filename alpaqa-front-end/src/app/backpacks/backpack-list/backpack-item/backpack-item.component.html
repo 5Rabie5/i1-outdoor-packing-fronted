@@ -1,0 +1,312 @@
+<!--List of Backpacks-->
+<div class="container justify-content">
+  <div class="col-md-4">
+    <a
+      class="list-group-item list-group-item-action list-inline text-center "
+      style="background-color:transparent; border-style: none; "
+      (click)="onSelected()" data-toggle="modal" href="#modalIstOfItem">
+       <span>
+          <img
+            [src]="backpack.image"
+            alt="{{ backpack.name }}"
+            class="img-circle center-block" style="border-color:white; border-style: solid; border-width: 5px;"
+            width="236" height="236">
+       </span>
+      <br>
+
+      <div class=" justify-content-center">
+        <h3 class="">{{ backpack.name}}</h3>
+        <p class="">{{ backpack.description }}</p>
+      </div>
+
+    </a>
+  </div>
+</div>
+<!--List of Backpacks finish-->
+
+<!-- Modal list of  Item   -->
+<div class="modal fade overflow-hidden" id="modalIstOfItem" role="dialog" data-backdrop="true">
+
+  <div class="modal-dialog modal-mm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-image: linear-gradient(#5cbfa9, #8bcc8f);">
+        <div class="row align-items-start">
+          <div class="col-6 col-md-4 align-self-center">
+            <h1 class="modal-title float-right text-white">All Item</h1>
+          </div>
+          <div class="col-6 col-md-4 align-self-center">
+            <h1>{{ itemsCount }} <span class="badge badge-primary badge-pill text-white"></span></h1>
+          </div>
+          <br>
+          <div class="col-6 col-md-4 ">
+            <button type="button " class="close" data-dismiss="modal">&times;</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body" style="background-image: linear-gradient( #2df3b5,  #2df3b5); ">
+        <div class="row " style="background-image: linear-gradient( #2df3b5,  #2df3b5); border-style: none; ">
+          <div class="col-xs-12">
+            <button (click)="onNewItem()"
+                    class="btn btn-success btn-circle btn-xl"
+                    data-toggle="modal"
+                    data-target="#myModalAddItem">
+              <i class="glyphicon glyphicon-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row" (mouseleave)="onLeave($event)">
+            <div class="col-sm-9 col-example">
+              <a
+                data-toggle="modal"
+                href="#modelIcon"
+                style="background-image: linear-gradient( #2df3b5,  #2df3b5); border-style: none; "
+                class="list-group-item "
+                *ngFor="let item of items">
+
+                <div class="row">
+                  <div class="col-8 col-sm-6 col-example">
+                    <div>
+                    <span class="pull-left ">
+                      <a href="#modalItemDetails" data-toggle="modal">
+                      <img
+                        [src]="item.image"
+                        alt="{{ item.name }}"
+                        class="img-circle d-inline" width="120" height="120"></a>
+                    </span>
+                    </div>
+                  </div>
+                  <div class="col-4 col-sm-6 col-example">
+                    <div>
+                      <h1 class="text-right pull-right b" (mouseenter)="onHover($event)" id="{{ item.id }}"><a
+                        href="#modalItemDetails" data-toggle="modal">  {{ item.name }}</a></h1>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <br>
+            </div>
+            <div class="col-md-3 ml-auto " #iconList2>
+              <div *ngIf="iconList">
+                <div class="list-group ">
+                  <ul style="list-style-type:none;">
+                    <li><a href="#modalItemDetails" data-toggle="modal"
+                           class="list-group-item list-group-item-action list-group-item-success btn btn-info "
+                           style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
+                      class="glyphicon glyphicon-th-list"></i></a>
+                    </li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModalAddItem"
+                           (click)="onEdit()"
+                           class="list-group-item list-group-item-action list-group-item-secondary btn btn-info  "
+                           style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
+                      class="glyphicon glyphicon-pencil"></i></a>
+                    </li>
+                    <li><a href="javascript:void(0);" (click)="onDelete()"
+                           class="list-group-item list-group-item-action list-group-item-danger btn btn-info "
+                           style="background-color: rgba(0,0,0,.0001) !important;  border-style: none;"><i
+                      class="glyphicon glyphicon-trash"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal add new Item  -->
+  <div class="modal fade "
+       id="myModalAddItem"
+       role="dialog"
+       tabindex="-1"
+       aria-labelledby="modalIstOfItem"
+       aria-hidden="true"
+       data-backdrop="false"
+       *ngIf="addingNewItemActive">
+
+    <div class="modal-dialog  modal-mm  ">
+      <div class="modal-content ">
+        <div class="modal-header  " style="background-image: linear-gradient(#5cbfa9, #8bcc8f);">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title text-light">New Item</h2>
+        </div>
+        <div class="modal-body" style="background-image: linear-gradient( #2df3b5,  #2df3b5); ">
+          <div class="row">
+            <div class="col-xs-12">
+              <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button
+                      [disabled]="!itemForm.valid"
+                      class="btn btn-success"
+                      type="submit">Save
+                    </button>
+                  </div>
+
+                  <div class="col-xs-12 ">
+                    <div class="form-group">
+                      <label for="name">Name </label>
+                      <input
+                        value="{{selectedItem.name}}"
+                        type="text"
+                        id="name"
+                        formControlName="name"
+                        class="form-control ">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="weight">Weight</label>
+                      <input
+                        value="{{selectedItem.weight}}"
+                        type="text"
+                        id="weight"
+                        formControlName="weight"
+                        class="form-control">
+                      <div *ngIf="onWritingWords()">
+                        <div class="alert alert-danger">
+                          <strong>Attention!</strong> Only numbers are allowed.
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="volume">Volume</label>
+                      <input
+                        value="{{selectedItem.volume}}"
+                        type="text"
+                        id="volume"
+                        formControlName="volume"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="quantity">Quantity</label>
+                      <input
+                        value="{{selectedItem.quantity}}"
+                        type="text"
+                        id="quantity"
+                        formControlName="quantity"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="priority">Priority</label>
+                      <input
+                        value="{{selectedItem.priority}}"
+                        type="text"
+                        id="priority"
+                        formControlName="priority"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="image">Image URL</label>
+                      <input
+                        value="{{selectedItem.image}}"
+                        type="text"
+                        id="image"
+                        formControlName="image"
+                        class="form-control"
+                        #image>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-xs-12">
+                    <img [src]="image.value" class="img-responsive">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group has-error has-feedback">
+                      <label for="description">Description</label>
+                      <textarea
+                        value="{{selectedItem.description}}"
+                        type="text"
+                        id="description"
+                        class="form-control"
+                        formControlName="description"
+                        rows="6"></textarea>
+                      <div *ngIf="onInputLength() ">
+                        <div class="alert alert-danger">
+                          <strong>attention!</strong> this note will not be saved because length increased above the
+                          allowed characters 200 Max.
+                        </div>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="background-image: linear-gradient( #2df3b5,  #2df3b5); border-style: none;">
+          <button
+            type="submit"
+            (click)="hideAddNewItemModel()"
+            class="btn btn-danger btn-default pull-left"
+            data-dismiss="modal">
+            <span class="glyphicon glyphicon-remove"></span>
+
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal add new Item   finish-->
+  <br>
+  <!-- modalItemDetails-->
+  <div class="modal fade" id="modalItemDetails"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="modalIstOfItem"
+       aria-hidden="true"
+       data-backdrop="true">
+    <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+      <!--Content-->
+      <div class="modal-content" *ngIf="selectedItem" style="background-image: linear-gradient(#5cbfa9, #8bcc8f);">
+        <!--Header-->
+        <div class="modal-header" style="background-color:transparent; border-style: none; ">
+          <img [src]="selectedItem.image" alt="selectedItem.name" class="img-circle rounded-circle img-responsive"
+               style="background-color:transparent; border-style: none; ">
+        </div>
+        <!--Body-->
+        <div class="modal-body text-center mb-1">
+          <h2 class="mt-1 mb-2 c">{{selectedItem.name | uppercase}} Details</h2>
+          <h3 class="mt-1 mb-2">Weight: {{selectedItem.weight}}</h3>
+          <h3 class="mt-1 mb-2">Quantity: {{selectedItem.quantity}}</h3>
+          <h3 class="mt-1 mb-2">Priority: {{selectedItem.priority}}</h3>
+          <h3 class="mt-1 mb-2">Description: {{selectedItem.description}}</h3>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+  <!-- modalItemDetails finish-->
+
+
+</div>
+
+
+<!-- Modal list of  Item   finish-->
+
+
+
+
