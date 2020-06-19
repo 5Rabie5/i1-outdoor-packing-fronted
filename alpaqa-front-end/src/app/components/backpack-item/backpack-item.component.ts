@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, ViewChild, Output, Renderer2, ElementRef} from '@angular/core';
-import {Item} from '../../item.model';
-import {BackpackService} from '../../packback.servise';
-import {BackpackServiceStorage} from '../../backpack.service.storage';
-import {Backpack} from '../../backpack.model';
+import {Item} from '../backpacks/item.model';
+import {BackpackService} from '../backpacks/packback.servise';
+import {BackpackServiceStorage} from '../backpacks/backpack.service.storage';
+import {Backpack} from '../backpacks/backpack.model';
 import {FormGroup, FormControl, FormArray, FormBuilder, Validators} from '@angular/forms';
 import {EventEmitter} from '@angular/core' ;
 

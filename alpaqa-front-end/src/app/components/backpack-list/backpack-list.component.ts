@@ -1,10 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Backpack} from '../backpack.model';
-import {BackpackService} from '../packback.servise';
-import {Item} from '../item.model';
-import {BackpackServiceStorage} from '../backpack.service.storage';
-import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Backpack} from '../backpacks/backpack.model';
+import {BackpackService} from '../backpacks/packback.servise';
+import {Item} from '../backpacks/item.model';
+import {BackpackServiceStorage} from '../backpacks/backpack.service.storage';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -14,22 +13,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class BackpackListComponent implements OnInit {
   @ViewChild('closebutton') closebutton;
+  @ViewChild('iconListBackpack2') iconListBackpack2: ElementRef;
+
   backpacks: Backpack[];
   hoverbackpack: Backpack;
   backpackForm: FormGroup;
   id: number;
-  items: Item[];
   iconListBackpack = false;
-  backpackElDiv2 = true;
   editMode = false;
   addNewBackpackActive = false;
-  @ViewChild('iconListBackpack2') iconListBackpack2: ElementRef;
 
   constructor(private backpackService: BackpackService,
-              private backpackServiceStorage: BackpackServiceStorage,
-              private router: Router,
-              private route: ActivatedRoute, private fb: FormBuilder
-  ) {
+              private backpackServiceStorage: BackpackServiceStorage) {
   }
 
   ngOnInit() {
@@ -48,7 +43,6 @@ export class BackpackListComponent implements OnInit {
   onSubmit() {
     this.backpackServiceStorage.postNewBackpacks(this.backpackForm.value)
       .subscribe(() => {
-
         this.addNewBackpackActive=false;
         this.getBackpacks();
       });

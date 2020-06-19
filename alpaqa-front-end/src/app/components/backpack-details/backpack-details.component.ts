@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Item } from '../item.model';
-import { Backpack } from '../backpack.model';
-import { BackpackService } from '../packback.servise';
+import { Item } from '../backpacks/item.model';
+import { Backpack } from '../backpacks/backpack.model';
+import { BackpackService } from '../backpacks/packback.servise';
 
 @Component({
   selector: 'app-backpack-details',

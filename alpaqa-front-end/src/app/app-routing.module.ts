@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackpacksComponent } from './backpacks/backpacks.component';
-import { BackpackDetailsComponent } from './backpacks/backpack-details/backpack-details.component';
+import { BackpacksComponent } from './components/backpacks/backpacks.component';
+import { BackpackDetailsComponent } from './components/backpack-details/backpack-details.component';
 
 const routes: Routes = [
                         { path: '', redirectTo: '/backpacks', pathMatch: 'full' },
