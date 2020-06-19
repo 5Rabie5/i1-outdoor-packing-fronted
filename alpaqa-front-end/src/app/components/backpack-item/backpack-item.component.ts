@@ -145,32 +145,32 @@ export class BackpackItemComponent implements OnInit {
   };
 
 
-  public onHover(e) {
-    this.nu2 = e.y - 300;
-    let nu: number = e.target.id;
-    let selectedItem2: Item = this.items.find(element => element.id == nu);
+  public onHover(item: Item) {
+    // this.nu2 = e.y - 300;
+    // let nu: number = e.target.id;
+    // let selectedItem2: Item = this.items.find(element => element.id == nu);
     //    let selectedItem2: Item   = new Item(100, "eeebie5",  2,  20,  "sasdrrrrasd",  2, "2", "https://cdn.pixabay.com/photo/2015/12/21/00/06/motivation-1101887_960_720.jpg");
 
-    this.item = selectedItem2;
-    this.dataEvent.emit(this.item);
-
-    this.checkPosition();
-    if (this.nu2 > this.lm || this.nu2 < this.ls) {
-      this.renderer.setStyle(this.iconList2.nativeElement, 'display', 'none');
-      this.flag = false;
-      this.lm = 0;
-      this.ls = 0;
-      this.checkPosition();
-    }
+    // this.item = selectedItem2;
+    // this.dataEvent.emit(this.item);
+    this.selectedItem = item;
+    // this.checkPosition();
+    // if (this.nu2 > this.lm || this.nu2 < this.ls) {
+    //   this.renderer.setStyle(this.iconList2.nativeElement, 'display', 'none');
+    //   this.flag = false;
+    //   this.lm = 0;
+    //   this.ls = 0;
+    //   this.checkPosition();
+    // }
     this.iconList = true;
-    return e.isTrusted;
+    // return e.isTrusted;
   }
 
   public onLeave(event) {
     this.iconList = false;
   }
 
-  public onEdit() {
+  public onEdit(item) {
     this.editMode = true;
     this.showAddNewItemModel();
     const itemName = this.selectedItem.name;
@@ -192,8 +192,8 @@ export class BackpackItemComponent implements OnInit {
     })
   }
 
-  public onDelete() {
-    this.backpackServiceStorage.deleteItem(this.selectedBackpack.id, this.selectedItem.id).subscribe(
+  public onDelete(item: Item) {
+    this.backpackServiceStorage.deleteItem(this.selectedBackpack.id, item.id).subscribe(
       data => {
         this.getItemsForSelectedBackpack();
       },

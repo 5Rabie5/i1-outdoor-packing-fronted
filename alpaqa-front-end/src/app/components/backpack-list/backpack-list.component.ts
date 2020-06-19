@@ -16,7 +16,7 @@ export class BackpackListComponent implements OnInit {
 
   backpacks: Backpack[];
   backpackForm: FormGroup;
-  id: number;
+  selectedBackpackId: number;
   iconListBackpack = false;
   editMode = false;
   addNewBackpackActive = false;
@@ -39,12 +39,15 @@ export class BackpackListComponent implements OnInit {
 
 
   onSubmit() {
-    this.backpackServiceStorage.postNewBackpacks(this.backpackForm.value)
-      .subscribe(() => {
-        this.addNewBackpackActive=false;
-        this.getBackpacks();
-      });
-
+    if (this.editMode) {
+    // todo implement edit logic
+    } else {
+      this.backpackServiceStorage.postNewBackpacks(this.backpackForm.value)
+        .subscribe(() => {
+          this.addNewBackpackActive = false;
+          this.getBackpacks();
+        });
+    }
   }
 
   onInputSameName() {
@@ -70,16 +73,14 @@ export class BackpackListComponent implements OnInit {
   }
 
   onNewBackpack() {
-   this.showAddNewBackpackModel();
+    this.showAddNewBackpackModel();
     this.initForm();
   }
 
-  public onSave() {
-    // this.closebutton.nativeElement.click();
-  }
-
-  public onHover() {
+  public onHover(backpack:Backpack) {
+    this.selectedBackpackId = backpack.id;
     this.iconListBackpack = true;
+
   }
 
   public onLeave(event) {
@@ -103,9 +104,9 @@ export class BackpackListComponent implements OnInit {
   }
 
   public onDelete(backpack: Backpack) {
-    this.backpackServiceStorage. deleteBackpack(backpack.id).subscribe(
+    this.backpackServiceStorage.deleteBackpack(backpack.id).subscribe(
       data => {
-        this.getBackpacks() ;
+        this.getBackpacks();
       },
       error => {
         console.log('Error', error);

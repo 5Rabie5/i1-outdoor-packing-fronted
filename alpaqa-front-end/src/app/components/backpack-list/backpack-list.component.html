@@ -26,11 +26,11 @@
       <a *ngFor="let backpackEl of backpacks" (mouseleave)="onLeave($event)">
         <div class="col-md-2 ">
           <app-backpack-item [backpack]="backpackEl"
-                             (mouseenter)="onHover()"
+                             (mouseenter)="onHover(backpackEl)"
           ><br></app-backpack-item>
         </div>
         <div class="col-md-1 ">
-          <div *ngIf="iconListBackpack">
+          <div *ngIf="iconListBackpack && backpackEl.id==selectedBackpackId">
             <div class="list-group ">
               <ul style="list-style-type:none;">
                 <li><a href="#modalItemDetails" data-toggle="modal"

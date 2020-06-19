@@ -1,0 +1,47 @@
+<a
+  data-toggle="modal"
+  href="#modelIcon"
+  style="background-image: linear-gradient( #2df3b5,  #2df3b5); border-style: none; "
+  class="list-group-item "
+  *ngFor="let item of items">
+  <div class="col-md-2 ">
+    <div class="col-md-2">
+      <div>
+                      <span class="pull-left ">
+                        <a href="#modalItemDetails" data-toggle="modal">
+                        <img
+                          [src]="item.image"
+                          alt="{{ item.name }}"
+                          class="img-circle d-inline" width="120" height="120"></a>
+                      </span>
+      </div>
+      <div>
+        <h1 class="text-right pull-right b" (mouseenter)="onHover(item)" id="{{ item.id }}"><a
+          href="#modalItemDetails" data-toggle="modal">  {{ item.name }}</a></h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1" #iconList2>
+    <div *ngIf="true">
+      <div class="list-group ">
+        <ul style="list-style-type:none;">
+          <li><a href="#modalItemDetails" data-toggle="modal"
+                 class="list-group-item list-group-item-action list-group-item-success btn btn-info "
+                 style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
+            class="glyphicon glyphicon-th-list"></i></a>
+          </li>
+          <li><a href="#" data-toggle="modal" data-target="#myModalAddItem"
+                 (click)="onEdit(item)"
+                 class="list-group-item list-group-item-action list-group-item-secondary btn btn-info  "
+                 style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
+            class="glyphicon glyphicon-pencil"></i></a>
+          </li>
+          <li><a href="javascript:void(0);" (click)="onDelete(item)"
+                 class="list-group-item list-group-item-action list-group-item-danger btn btn-info "
+                 style="background-color: rgba(0,0,0,.0001) !important;  border-style: none;"><i
+            class="glyphicon glyphicon-trash"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</a>
