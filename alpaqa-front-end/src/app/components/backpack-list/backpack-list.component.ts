@@ -51,7 +51,11 @@ export class BackpackListComponent implements OnInit {
   }
 
   onInputSameName() {
+    if(!this.editMode){
     return this.backpacks.find(element => element.name == this.backpackForm.value['name']);
+    }else{
+      return false;
+    }
   }
 
   onInputLength() {
@@ -96,10 +100,9 @@ export class BackpackListComponent implements OnInit {
 
 
     this.backpackForm = new FormGroup({
-      name: new FormControl(backpackName, Validators.required),
+      name: new FormControl(backpackName),
       image: new FormControl(backpackImage),
       description: new FormControl(backpackDescription),
-
     });
   }
 
