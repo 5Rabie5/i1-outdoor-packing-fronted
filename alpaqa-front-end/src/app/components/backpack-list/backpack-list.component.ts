@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Backpack} from '../backpacks/backpack.model';
 import {BackpackService} from '../backpacks/packback.servise';
-import {Item} from '../backpacks/item.model';
 import {BackpackServiceStorage} from '../backpacks/backpack.service.storage';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -16,7 +15,6 @@ export class BackpackListComponent implements OnInit {
   @ViewChild('iconListBackpack2') iconListBackpack2: ElementRef;
 
   backpacks: Backpack[];
-  hoverbackpack: Backpack;
   backpackForm: FormGroup;
   id: number;
   iconListBackpack = false;
@@ -80,26 +78,20 @@ export class BackpackListComponent implements OnInit {
     // this.closebutton.nativeElement.click();
   }
 
-  public onHover(e) {
-
+  public onHover() {
     this.iconListBackpack = true;
-
-    let txt: string = (e.target as HTMLDivElement).innerText.split('\n')[2];
-    this.hoverbackpack = this.backpacks.find(element => element.name == txt);
-    console.log();
-    this.id = this.hoverbackpack.id;
   }
 
   public onLeave(event) {
     this.iconListBackpack = false;
   }
 
-  public onEdit() {
+  public onEdit(backpack: Backpack) {
     this.editMode = true;
     this.showAddNewBackpackModel();
-    const backpackName = this.hoverbackpack.name;
-    const backpackImage = this.hoverbackpack.image;
-    const backpackDescription = this.hoverbackpack.description;
+    const backpackName = backpack.name;
+    const backpackImage = backpack.image;
+    const backpackDescription = backpack.description;
 
 
     this.backpackForm = new FormGroup({
@@ -110,8 +102,8 @@ export class BackpackListComponent implements OnInit {
     });
   }
 
-  public onDelete() {
-    this.backpackServiceStorage. deleteBackpack(this.hoverbackpack.id).subscribe(
+  public onDelete(backpack: Backpack) {
+    this.backpackServiceStorage. deleteBackpack(backpack.id).subscribe(
       data => {
         this.getBackpacks() ;
       },

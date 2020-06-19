@@ -26,11 +26,11 @@
       <a *ngFor="let backpackEl of backpacks" (mouseleave)="onLeave($event)">
         <div class="col-md-2 ">
           <app-backpack-item [backpack]="backpackEl"
-                             (mouseenter)="onHover($event)"
+                             (mouseenter)="onHover()"
           ><br></app-backpack-item>
         </div>
         <div class="col-md-1 ">
-          <div *ngIf="iconListBackpack && backpackEl.id==id">
+          <div *ngIf="iconListBackpack">
             <div class="list-group ">
               <ul style="list-style-type:none;">
                 <li><a href="#modalItemDetails" data-toggle="modal"
@@ -38,13 +38,13 @@
                        style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
                   class="glyphicon glyphicon-th-list"></i></a>
                 </li>
-                <li><a href="#" data-toggle="modal" data-target="#myModalAddItem"
-                       (click)="onEdit()"
+                <li><a href="#" data-toggle="modal" data-target="#myModal2"
+                       (click)="onEdit(backpackEl)"
                        class="list-group-item list-group-item-action list-group-item-secondary btn btn-info  "
                        style="background-color: rgba(0,0,0,.0001) !important; border-style: none;"><i
                   class="glyphicon glyphicon-pencil"></i></a>
                 </li>
-                <li><a href="javascript:void(0);" (click)="onDelete()"
+                <li><a href="javascript:void(0);" (click)="onDelete(backpackEl)"
                        class="list-group-item list-group-item-action list-group-item-danger btn btn-info "
                        style="background-color: rgba(0,0,0,.0001) !important;  border-style: none;"><i
                   class="glyphicon glyphicon-trash"></i></a></li>

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BackpacksComponent } from './components/backpacks/backpacks.component';
 import { BackpackListComponent } from './components/backpack-list/backpack-list.component';
-import { BackpackDetailsComponent } from './components/backpack-details/backpack-details.component';
 import { BackpackItemComponent } from './components/backpack-item/backpack-item.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     BackpacksComponent,
     BackpackListComponent,
-    BackpackDetailsComponent,
     BackpackItemComponent,
      ],
   imports: [
