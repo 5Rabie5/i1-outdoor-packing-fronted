@@ -7,9 +7,7 @@
     <div class="col-xs-12">
       <button (click)="onNewBackpack()" class="btn btn-success btn-circle btn-xl" data-toggle="modal" href="#myModal2">
         <i class="glyphicon glyphicon-plus"></i></button>
-      <button class="btn btn-success btn-circle btn-xl" data-toggle="modal" href="#modelIcon">
-        <i class="glyphicon glyphicon-plus"></i></button>
-    </div>
+       </div>
   </div>
   <!--  Add Backpack finish  -->
 </div>
@@ -48,6 +46,10 @@
                        class="list-group-item list-group-item-action list-group-item-danger btn btn-info "
                        style="background-color: rgba(0,0,0,.0001) !important;  border-style: none;"><i
                   class="glyphicon glyphicon-trash"></i></a></li>
+                <li><a href="javascript:void(0);" (click)="onDownload(backpackEl)"
+                       class="list-group-item list-group-item-action list-group-item-danger btn btn-info "
+                       style="background-color: rgba(0,0,0,.0001) !important;  border-style: none;"><i
+                  class="glyphicon glyphicon-download-alt"></i></a></li>
               </ul>
             </div>
           </div>
@@ -67,9 +69,7 @@
      role="dialog"
      aria-hidden="true"
      data-backdrop="false"
-     *ngIf="addNewBackpackActive"
-
->
+     *ngIf="addNewBackpackActive">
   <div class="modal-dialog modal-mm">
     <div class="modal-content">
       <div class="modal-header  " style="background-image: linear-gradient(#5cbfa9, #8bcc8f);">

@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable, SecurityContext} from '@angular/core';
 import {Backpack} from './backpack.model';
 import {HttpClient} from '@angular/common/http';
 import {Item} from './item.model';
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,27 @@ import {Item} from './item.model';
 export class BackpackServiceStorage {
   private Url = 'http://localhost:8080/backpacks';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private sanitizer: DomSanitizer) {
   }
 
   backpacks: Backpack[];
   items: Item[];
+  backpack: Backpack;
+
+  generateDownloadJsonUri(backpack: Backpack, backpackName: string) {
+
+    let theJSON = JSON.stringify(this.backpack);
+    // var data = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    let data = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, this.sanitizer.bypassSecurityTrustResourceUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON)));
+    let downloader = document.createElement('a');
+
+
+    downloader.setAttribute('href', data);
+    downloader.setAttribute('download', backpackName + '.json');
+    downloader.click();
+
+
+  }
 
   public getBackpacks() {
     return this.httpClient.get<Backpack[]>(this.Url);
@@ -47,6 +64,6 @@ export class BackpackServiceStorage {
   }
 
   public deleteBackpack(backpackId: number) {
-    return this.httpClient.delete<Item>('http://localhost:8080/backpacks/' + backpackId );
+    return this.httpClient.delete<Item>('http://localhost:8080/backpacks/' + backpackId);
   }
 }

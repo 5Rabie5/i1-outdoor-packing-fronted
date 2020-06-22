@@ -40,7 +40,7 @@ export class BackpackListComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-    // todo implement edit logic
+      // todo implement edit logic
     } else {
       this.backpackServiceStorage.postNewBackpacks(this.backpackForm.value)
         .subscribe(() => {
@@ -51,9 +51,9 @@ export class BackpackListComponent implements OnInit {
   }
 
   onInputSameName() {
-    if(!this.editMode){
-    return this.backpacks.find(element => element.name == this.backpackForm.value['name']);
-    }else{
+    if (!this.editMode) {
+      return this.backpacks.find(element => element.name == this.backpackForm.value['name']);
+    } else {
       return false;
     }
   }
@@ -81,7 +81,7 @@ export class BackpackListComponent implements OnInit {
     this.initForm();
   }
 
-  public onHover(backpack:Backpack) {
+  public onHover(backpack: Backpack) {
     this.selectedBackpackId = backpack.id;
     this.iconListBackpack = true;
 
@@ -124,6 +124,11 @@ export class BackpackListComponent implements OnInit {
 
   public showAddNewBackpackModel() {
     this.addNewBackpackActive = true;
+  }
+
+  public onDownload(backpack: Backpack) {
+    this.backpackServiceStorage.generateDownloadJsonUri(backpack,backpack.name);
+
   }
 
 }
