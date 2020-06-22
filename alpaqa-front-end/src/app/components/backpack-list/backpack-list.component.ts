@@ -40,8 +40,14 @@ export class BackpackListComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      // todo implement edit logic
-    } else {
+
+      this.backpackServiceStorage.updateBackpack(this.backpackForm.value,this.selectedBackpackId)
+        .subscribe(() => {
+          this.addNewBackpackActive = false;
+          this.getBackpacks();
+        });
+
+      } else {
       this.backpackServiceStorage.postNewBackpacks(this.backpackForm.value)
         .subscribe(() => {
           this.addNewBackpackActive = false;

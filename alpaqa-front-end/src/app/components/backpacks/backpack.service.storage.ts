@@ -66,4 +66,7 @@ export class BackpackServiceStorage {
   public deleteBackpack(backpackId: number) {
     return this.httpClient.delete<Item>('http://localhost:8080/backpacks/' + backpackId);
   }
+  public updateBackpack(backpack:Backpack,backpackId: number) {
+    return this.httpClient.put<Backpack>('http://localhost:8080/backpacks/' + backpackId ,backpack);
+  }
 }
